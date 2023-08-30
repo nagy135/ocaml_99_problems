@@ -29,6 +29,18 @@ module Third =
   end
 ;;
 
+module Fourth = 
+  struct
+    let rec length_counter list count =
+      match ( list, count) with
+        | ( [], x ) -> x
+        | (_ :: rest, x) -> length_counter rest (x + 1)
+      
+    let length list =
+      length_counter list 0
+  end
+;;
+
 let () =
   (* first *)
   let open First in
@@ -63,3 +75,10 @@ let () =
     | None ->  "nothing"
   in
   print_endline res3;
+
+  (* fourth *)
+  let open Fourth in
+  print_endline "---\nFourth:" ;
+  let fourth_result = length ["1" ; "2" ; "3" ; "4"] in
+  Printf.printf "%d\n" fourth_result
+
