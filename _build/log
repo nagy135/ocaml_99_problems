@@ -1,9 +1,9 @@
-# dune exec simple
+# dune exec ocaml_99_problems
 # OCAMLPARAM: unset
 # Shared cache: disabled
 # Workspace root: /Users/viktornagy/Code/ocaml_99_problems
 # Auto-detected concurrency: 8
-$ /Users/viktornagy/.opam/default/bin/ocamlc.opt -config > /var/folders/yk/cv01xk692jqf5r0p7z0j4l840000gn/T/dune_ea808c_output
+$ /Users/viktornagy/.opam/default/bin/ocamlc.opt -config > /var/folders/yk/cv01xk692jqf5r0p7z0j4l840000gn/T/dune_5f6968_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -112,3 +112,5 @@ $ /Users/viktornagy/.opam/default/bin/ocamlc.opt -config > /var/folders/yk/cv01x
 #      ; windows_unicode = false
 #      }
 #  }
+$ (cd _build/default && /Users/viktornagy/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.ocaml_99_problems.objs/byte -I lib/.ocaml_99_problems.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
+$ (cd _build/default && /Users/viktornagy/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/main.exe lib/ocaml_99_problems.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
