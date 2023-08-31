@@ -4,11 +4,11 @@ module First =
       match list with
         | [] -> None
         | [x] -> Some x
-        | _ :: rest -> last rest 
-  end 
+        | _ :: rest -> last rest
+  end
 ;;
 
-module Second = 
+module Second =
   struct
     let rec last_two list =
       match list with
@@ -19,7 +19,7 @@ module Second =
   end
 ;;
 
-module Third = 
+module Third =
   struct
     let rec nth_record list i =
       match ( list, i ) with
@@ -29,19 +29,19 @@ module Third =
   end
 ;;
 
-module Fourth = 
+module Fourth =
   struct
     let rec length_counter list count =
       match ( list, count) with
         | ( [], x ) -> x
         | (_ :: rest, x) -> length_counter rest (x + 1)
-      
+
     let length list =
       length_counter list 0
   end
 ;;
 
-module Fifth = 
+module Fifth =
   struct
     let rec do_reverse input accumulator =
       match input with
@@ -50,7 +50,7 @@ module Fifth =
 
     let reverse list =
       do_reverse list []
-      
+
   end
 ;;
 
@@ -60,7 +60,7 @@ let () =
   print_endline "First:" ;
   let first_result = last ["1" ; "2" ; "3"] in
   (* let first_res = last [] in *)
-  let res1 = match first_result with 
+  let res1 = match first_result with
     | Some x ->  x
     | None ->  "nothing"
   in
@@ -72,9 +72,9 @@ let () =
   let second_result = last_two ["1" ; "2" ; "3"] in
   (* let second_res = last_two ["3"] in *)
   (* let second_res = last_two [] in *)
-  let res2 = match second_result with 
+  let res2 = match second_result with
     | Some (x , y) -> Printf.sprintf "%s , %s" x y
-    | None ->  "nothing" 
+    | None ->  "nothing"
   in
   print_endline res2;
 
@@ -83,7 +83,7 @@ let () =
   print_endline "---\nThird:" ;
   let third_result = nth_record ["1" ; "2"] 1 in
   (* let third_result = nth_record ["1" ; "2"] 2 in *)
-  let res3 = match third_result with 
+  let res3 = match third_result with
     | Some x ->  x
     | None ->  "nothing"
   in
