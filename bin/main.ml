@@ -54,13 +54,23 @@ module Fifth =
   end
 ;;
 
+module Sixth =
+  struct
+    let palindrome list = 
+      let open Fifth in
+      list = reverse list 
+
+  end
+;;
+
+
 let () =
   (* first *)
   let open First in
   print_endline "First:" ;
-  let first_result = last ["1" ; "2" ; "3"] in
+  let result = last ["1" ; "2" ; "3"] in
   (* let first_res = last [] in *)
-  let res1 = match first_result with
+  let res1 = match result with
     | Some x ->  x
     | None ->  "nothing"
   in
@@ -69,10 +79,10 @@ let () =
   (* second *)
   let open Second in
   print_endline "---\nSecond:" ;
-  let second_result = last_two ["1" ; "2" ; "3"] in
+  let result = last_two ["1" ; "2" ; "3"] in
   (* let second_res = last_two ["3"] in *)
   (* let second_res = last_two [] in *)
-  let res2 = match second_result with
+  let res2 = match result with
     | Some (x , y) -> Printf.sprintf "%s , %s" x y
     | None ->  "nothing"
   in
@@ -81,9 +91,9 @@ let () =
   (* third *)
   let open Third in
   print_endline "---\nThird:" ;
-  let third_result = nth_record ["1" ; "2"] 1 in
+  let result = nth_record ["1" ; "2"] 1 in
   (* let third_result = nth_record ["1" ; "2"] 2 in *)
-  let res3 = match third_result with
+  let res3 = match result with
     | Some x ->  x
     | None ->  "nothing"
   in
@@ -92,13 +102,23 @@ let () =
   (* fourth *)
   let open Fourth in
   print_endline "---\nFourth:" ;
-  let fourth_result = length ["1" ; "2" ; "3" ; "4"] in
-  Printf.printf "%d\n" fourth_result;
+  let result = length ["1" ; "2" ; "3" ; "4"] in
+  Printf.printf "%d\n" result;
 
   (* fifth *)
   let open Fifth in
   print_endline "---\nFifth:" ;
-  let fifth_result = reverse ["1" ; "2" ; "3"] in
-  List.iter (Printf.printf "%s ") fifth_result;
+  let result = reverse ["1" ; "2" ; "3"] in
+  List.iter (Printf.printf "%s ") result;
+  print_endline "" ;
+
+  (* sixth *)
+  let open Sixth in
+  print_endline "---\nSixth:" ;
+  let result = palindrome ["a" ; "b" ; "a"] in
+  (* let result = palindrome ["a" ; "b" ; "c"] in *)
+  Printf.printf "%b " result;
+
+
 
 
