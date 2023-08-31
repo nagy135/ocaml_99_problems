@@ -66,8 +66,8 @@ module Sixth =
 
 let () =
   (* first *)
-  let open First in
   print_endline "First:" ;
+  let open First in
   let result = last ["1" ; "2" ; "3"] in
   (* let first_res = last [] in *)
   let res1 = match result with
@@ -77,8 +77,8 @@ let () =
   print_endline res1 ;
 
   (* second *)
-  let open Second in
   print_endline "---\nSecond:" ;
+  let open Second in
   let result = last_two ["1" ; "2" ; "3"] in
   (* let second_res = last_two ["3"] in *)
   (* let second_res = last_two [] in *)
@@ -89,8 +89,8 @@ let () =
   print_endline res2;
 
   (* third *)
-  let open Third in
   print_endline "---\nThird:" ;
+  let open Third in
   let result = nth_record ["1" ; "2"] 1 in
   (* let third_result = nth_record ["1" ; "2"] 2 in *)
   let res3 = match result with
@@ -100,21 +100,21 @@ let () =
   print_endline res3;
 
   (* fourth *)
-  let open Fourth in
   print_endline "---\nFourth:" ;
+  let open Fourth in
   let result = length ["1" ; "2" ; "3" ; "4"] in
   Printf.printf "%d\n" result;
 
   (* fifth *)
-  let open Fifth in
   print_endline "---\nFifth:" ;
+  let open Fifth in
   let result = reverse ["1" ; "2" ; "3"] in
   List.iter (Printf.printf "%s ") result;
   print_endline "" ;
 
   (* sixth *)
-  let open Sixth in
   print_endline "---\nSixth:" ;
+  let open Sixth in
   let result = palindrome ["a" ; "b" ; "a"] in
   (* let result = palindrome ["a" ; "b" ; "c"] in *)
   Printf.printf "%b " result;
