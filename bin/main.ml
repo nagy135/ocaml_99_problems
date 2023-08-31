@@ -41,6 +41,19 @@ module Fourth =
   end
 ;;
 
+module Fifth = 
+  struct
+    let rec do_reverse input accumulator =
+      match input with
+        | [] -> accumulator
+        | x :: rest -> do_reverse rest (x :: accumulator)
+
+    let reverse list =
+      do_reverse list []
+      
+  end
+;;
+
 let () =
   (* first *)
   let open First in
@@ -80,5 +93,12 @@ let () =
   let open Fourth in
   print_endline "---\nFourth:" ;
   let fourth_result = length ["1" ; "2" ; "3" ; "4"] in
-  Printf.printf "%d\n" fourth_result
+  Printf.printf "%d\n" fourth_result;
+
+  (* fifth *)
+  let open Fifth in
+  print_endline "---\nFifth:" ;
+  let fifth_result = reverse ["1" ; "2" ; "3"] in
+  List.iter (Printf.printf "%s ") fifth_result;
+
 
