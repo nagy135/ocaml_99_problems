@@ -63,6 +63,23 @@ module Sixth =
   end
 ;;
 
+module Seventh =
+  struct
+
+    type 'a node =
+    | One of 'a 
+    | Many of 'a node list
+
+    let flatten list =
+      let rec do_flatten acc = function
+        | [] -> acc
+        | One x :: t -> do_flatten (x :: acc) t
+        | Many l :: t -> do_flatten (do_flatten acc l) t
+    in
+    List.rev (do_flatten [] list);;
+  end
+;;
+
 
 let () =
   (* first *)
@@ -117,7 +134,13 @@ let () =
   let open Sixth in
   let result = palindrome ["a" ; "b" ; "a"] in
   (* let result = palindrome ["a" ; "b" ; "c"] in *)
-  Printf.printf "%b " result;
+  Printf.printf "%b\n" result;
+
+  (* seventh *)
+  print_endline "---\nSeventh:" ;
+  let open Seventh in
+  let result = flatten [One "a"; Many [One "b"; Many [One "c" ;One "d"]; One "e"]] in
+  List.iter (Printf.printf "%s ") result;
 
 
 
