@@ -86,12 +86,16 @@ module Eight =
       let rec element_is_in_list element list =
         match list with
           | [] -> false
-          | x :: rest -> if x == element then true else element_is_in_list element rest
+          | x :: rest -> if x == element 
+            then true 
+            else element_is_in_list element rest
 
       let rec do_compress list accumulator =
         match list with
           | [] -> accumulator
-          | x :: rest -> if element_is_in_list x accumulator then do_compress rest accumulator else do_compress rest (x :: accumulator)
+          | x :: rest -> if element_is_in_list x accumulator 
+            then do_compress rest accumulator
+            else do_compress rest (x :: accumulator)
 
     let compress list =
       let open Fifth in
