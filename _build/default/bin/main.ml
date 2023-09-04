@@ -86,16 +86,35 @@ module Eight =
       let rec element_is_in_list element list =
         match list with
           | [] -> false
-          | x :: rest -> if x == element then true else element_is_in_list element rest
+          | x :: rest -> if x == element 
+            then true 
+            else element_is_in_list element rest
 
       let rec do_compress list accumulator =
         match list with
           | [] -> accumulator
-          | x :: rest -> if element_is_in_list x accumulator then do_compress rest accumulator else do_compress rest (x :: accumulator)
+          | x :: rest -> if element_is_in_list x accumulator 
+            then do_compress rest accumulator
+            else do_compress rest (x :: accumulator)
 
     let compress list =
       let open Fifth in
       do_compress list [] |> reverse
+  end
+
+module Nineth =
+  struct
+
+    let rec do_pack list accumulator =
+      match (list, accumulator) with 
+        | ([] , _) -> accumulator
+        | (current :: remaining , [] ) -> do_pack remaining ((current :: []) :: [])
+        | (current :: remaining , sublist :: rest) -> if current = ( List.hd sublist )
+          then do_pack remaining ((current :: sublist) :: rest) 
+          else do_pack remaining (( current :: []) :: sublist :: rest)
+    let pack list =
+      let open Fifth in
+      do_pack list [] |> reverse
   end
 
 
@@ -166,6 +185,12 @@ let () =
   let result = compress ["a" ; "a" ; "b" ; "a" ; "c" ; "c"] in
   List.iter (Printf.printf "%s ") result;
 
+  (* nineth *)
+  print_endline "\n---\nNineth:" ;
+  let open Nineth in
+  (* let result = pack ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"] in *)
+  let result = pack ["a"; "a" ; "b" ; "c" ; "c" ; "g"] in
+  List.iter (Printf.printf "%s ") (List.nth result 2)
 
 
 

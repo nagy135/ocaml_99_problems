@@ -102,6 +102,21 @@ module Eight =
       do_compress list [] |> reverse
   end
 
+module Nineth =
+  struct
+
+    let rec do_pack list accumulator =
+      match (list, accumulator) with 
+        | ([] , _) -> accumulator
+        | (current :: remaining , [] ) -> do_pack remaining ((current :: []) :: [])
+        | (current :: remaining , sublist :: rest) -> if current = ( List.hd sublist )
+          then do_pack remaining ((current :: sublist) :: rest) 
+          else do_pack remaining (( current :: []) :: sublist :: rest)
+    let pack list =
+      let open Fifth in
+      do_pack list [] |> reverse
+  end
+
 
 let () =
   (* first *)
@@ -170,6 +185,12 @@ let () =
   let result = compress ["a" ; "a" ; "b" ; "a" ; "c" ; "c"] in
   List.iter (Printf.printf "%s ") result;
 
+  (* nineth *)
+  print_endline "\n---\nNineth:" ;
+  let open Nineth in
+  (* let result = pack ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"] in *)
+  let result = pack ["a"; "a" ; "b" ; "c" ; "c" ; "g"] in
+  List.iter (Printf.printf "%s ") (List.nth result 2)
 
 
 
