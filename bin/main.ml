@@ -186,11 +186,16 @@ let () =
   List.iter (Printf.printf "%s ") result;
 
   (* nineth *)
-  print_endline "\n---\nNineth:" ;
+  print_string "\n---\nNineth:" ;
   let open Nineth in
-  (* let result = pack ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"] in *)
-  let result = pack ["a"; "a" ; "b" ; "c" ; "c" ; "g"] in
-  List.iter (Printf.printf "%s ") (List.nth result 2)
+  let result = pack ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"] in
+  (* let result = pack ["a"; "a" ; "b" ; "c" ; "c" ; "g"] in *)
+  List.iter (fun res -> 
+    let _ = Printf.printf "\n" in
+    List.iter (fun inner -> 
+      Printf.printf "%s " inner
+    ) res 
+  ) result;
 
 
 
