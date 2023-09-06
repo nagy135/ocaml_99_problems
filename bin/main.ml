@@ -130,6 +130,54 @@ module Tenth =
       do_pack list []
   end
 
+module Eleventh =
+  struct
+
+    type 'a rle =
+      | One of 'a
+      | Many of int * 'a
+
+    let rec do_pack list accumulator =
+      match (list, accumulator) with
+        | ([], _) -> accumulator
+        | (current :: remaining, []) -> do_pack remaining (One(current) :: [])
+        | (current :: remaining , rle_head :: rest) ->
+            match rle_head with
+              | One character -> if current = character
+                then do_pack remaining (Many(2, character) :: rest)
+                else do_pack remaining (One(current) :: One(character) :: rest)
+              | Many(number, character) -> if current = character
+                then do_pack remaining (Many(number + 1, character) :: rest)
+                else do_pack remaining (One(current) :: Many(number, character) :: rest)
+
+    let pack list =
+      let open Fifth in
+      do_pack list [] |> reverse
+  end
+
+module Twelfth =
+  struct
+    open Eleventh
+
+    let duplicate_string n str =
+      let rec aux n str acc =
+        match n with
+          | 0 -> acc
+          | remaining -> aux (remaining - 1) str (acc ^ str)
+      in 
+      aux n str ""
+
+
+    let rec do_decode rle_list accumulator =
+      match rle_list with
+        | [] -> accumulator
+        | head :: tail -> match head with 
+          | One character -> do_decode tail (character :: accumulator)
+          | Many (number, character) -> do_decode tail ((duplicate_string number character) :: accumulator)
+
+    let decode rle_list =
+      do_decode rle_list []
+  end
 
 let () =
   (* first *)
@@ -216,6 +264,19 @@ let () =
   List.iter (fun res -> 
     match res with
       | (num, character) -> Printf.printf "%i,%s\n" num character
-  ) result
+  ) result;
 
+  print_endline "\n---\nEleventh:" ;
+  let open Eleventh in
+  let result = pack ["a"; "a" ; "b" ; "c" ; "c" ; "a"] in
+  List.iter (fun res -> 
+    match res with
+      | One character -> Printf.printf "One of %s\n" character
+      | Many (number, character) -> Printf.printf "Many of (%i,%s)\n" number character
+  ) result;
+
+  print_endline "\n---\nTwelfth:" ;
+  let open Twelfth in
+  let result = decode [One "b" ; Many (2, "c"); One "a"] in
+  List.iter (Printf.printf "%s ") result
 
