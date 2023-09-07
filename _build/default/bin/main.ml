@@ -104,7 +104,6 @@ module Eight =
 
 module Nineth =
   struct
-
     let rec do_pack list accumulator =
       match (list, accumulator) with 
         | ([] , _) -> accumulator
@@ -156,6 +155,29 @@ module Eleventh =
       do_pack list [] |> reverse
   end
 
+module Twelfth =
+  struct
+    open Eleventh
+
+    let duplicate_string n str =
+      let rec aux n str acc =
+        match n with
+          | 0 -> acc
+          | remaining -> aux (remaining - 1) str (acc ^ str)
+      in 
+      aux n str ""
+
+
+    let rec do_decode rle_list accumulator =
+      match rle_list with
+        | [] -> accumulator
+        | head :: tail -> match head with 
+          | One character -> do_decode tail (character :: accumulator)
+          | Many (number, character) -> do_decode tail ((duplicate_string number character) :: accumulator)
+
+    let decode rle_list =
+      do_decode rle_list []
+  end
 
 let () =
   (* first *)
@@ -242,7 +264,6 @@ let () =
   List.iter (fun res -> 
     match res with
       | (num, character) -> Printf.printf "%i,%s\n" num character
-  ) result
   ) result;
 
   print_endline "\n---\nEleventh:" ;
@@ -254,4 +275,8 @@ let () =
       | Many (number, character) -> Printf.printf "Many of (%i,%s)\n" number character
   ) result;
 
+  print_endline "\n---\nTwelfth:" ;
+  let open Twelfth in
+  let result = decode [One "b" ; Many (2, "c"); One "a"] in
+  List.iter (Printf.printf "%s ") result
 
