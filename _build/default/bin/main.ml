@@ -167,7 +167,6 @@ module Twelfth =
       in 
       aux n str ""
 
-
     let rec do_decode rle_list accumulator =
       match rle_list with
         | [] -> accumulator
@@ -178,6 +177,16 @@ module Twelfth =
     let decode rle_list =
       do_decode rle_list []
   end
+
+  module Thirteenth =
+    struct
+      let duplicate list =
+        let rec aux list acc =
+          match list with
+            | [] -> acc
+            | head :: tail -> aux tail (head :: head :: acc)
+        in aux list []
+    end
 
 let () =
   (* first *)
@@ -266,7 +275,7 @@ let () =
       | (num, character) -> Printf.printf "%i,%s\n" num character
   ) result;
 
-  print_endline "\n---\nEleventh:" ;
+  print_endline "---\nEleventh:" ;
   let open Eleventh in
   let result = pack ["a"; "a" ; "b" ; "c" ; "c" ; "a"] in
   List.iter (fun res -> 
@@ -275,8 +284,13 @@ let () =
       | Many (number, character) -> Printf.printf "Many of (%i,%s)\n" number character
   ) result;
 
-  print_endline "\n---\nTwelfth:" ;
+  print_endline "---\nTwelfth:" ;
   let open Twelfth in
   let result = decode [One "b" ; Many (2, "c"); One "a"] in
+  List.iter (Printf.printf "%s ") result;
+
+  print_endline "\n---\nThirteenth:" ;
+  let open Thirteenth in
+  let result = duplicate ["a" ; "b" ; "c" ; "c" ; "a"] in
   List.iter (Printf.printf "%s ") result
 
