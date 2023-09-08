@@ -104,7 +104,6 @@ module Eight =
 
 module Nineth =
   struct
-
     let rec do_pack list accumulator =
       match (list, accumulator) with 
         | ([] , _) -> accumulator
@@ -115,6 +114,20 @@ module Nineth =
     let pack list =
       let open Fifth in
       do_pack list [] |> reverse
+  end
+
+module Tenth =
+  struct
+    let rec do_pack list accumulator =
+      match (list, accumulator) with
+        | ([], _) -> accumulator
+        | (current :: remaining, []) -> do_pack remaining ((1, current) :: [])
+        | (current :: remaining , (number, character) :: rest) -> if current = character
+          then do_pack remaining ((number + 1, character) :: rest) 
+          else do_pack remaining ((1, current) :: (number, character) :: rest)
+
+    let pack list =
+      do_pack list []
   end
 
 
@@ -197,5 +210,12 @@ let () =
     ) res 
   ) result;
 
+  print_endline "\n---\nTenth:" ;
+  let open Tenth in
+  let result = pack ["a"; "a" ; "b" ; "c" ; "c" ; "a"] in
+  List.iter (fun res -> 
+    match res with
+      | (num, character) -> Printf.printf "%i,%s\n" num character
+  ) result
 
 
