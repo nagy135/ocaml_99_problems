@@ -188,6 +188,23 @@ module Twelfth =
         in aux list []
     end
 
+  module Fourteenth =
+    struct
+      let duplicate list n =
+        let repeat_n n str =
+          let rec aux n acc =
+            match n with
+              | 0 -> acc
+              | x -> aux (x - 1) (str :: acc)
+          in aux n []
+        in
+        let rec aux list acc =
+          match list with
+            | [] -> acc
+            | head :: tail -> aux tail ((repeat_n n head) @ acc)
+        in aux list []
+    end
+
 let () =
   (* first *)
   print_endline "First:" ;
@@ -292,5 +309,11 @@ let () =
   print_endline "\n---\nThirteenth:" ;
   let open Thirteenth in
   let result = duplicate ["a" ; "b" ; "c" ; "c" ; "a"] in
-  List.iter (Printf.printf "%s ") result
+  List.iter (Printf.printf "%s ") result;
+
+  print_endline "\n---\nFourteenth:" ;
+  let open Fourteenth in
+  let result = duplicate ["a" ; "b" ; "c" ; "c" ; "a"] 3 in
+  List.iter (Printf.printf "%s ") result;
+
 
