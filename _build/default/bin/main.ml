@@ -205,6 +205,19 @@ module Twelfth =
         in aux list []
     end
 
+  module Fifteenth =
+    struct
+      let drop list i =
+        let rec aux list acc current_i =
+          match list with
+            | [] -> acc
+            | head :: tail ->
+              match ( current_i, acc ) with
+                | (1, acc) -> aux tail acc i 
+                | (x, acc) -> aux tail (head :: acc) ( x - 1 )
+        in aux list [] i |> List.rev
+    end
+
 let () =
   (* first *)
   print_endline "First:" ;
@@ -316,4 +329,8 @@ let () =
   let result = duplicate ["a" ; "b" ; "c" ; "c" ; "a"] 3 in
   List.iter (Printf.printf "%s ") result;
 
+  print_endline "\n---\nFifteenth:" ;
+  let open Fifteenth in
+  let result = drop ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"] 3 in
+  List.iter (Printf.printf "%s ") result;
 
