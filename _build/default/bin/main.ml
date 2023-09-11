@@ -218,6 +218,19 @@ module Twelfth =
         in aux list [] i |> List.rev
     end
 
+  module Sixteenth =
+    struct
+      let split list i =
+        let rec aux list (first, second) i =
+          match list with
+            | [] -> (first, second)
+            | head :: tail ->
+              match i with 
+                | 0 -> aux tail (first, head :: second) 0
+                | x -> aux tail (head :: first, second) (x - 1)
+        in aux list ([],[]) i
+    end
+
 let () =
   (* first *)
   print_endline "First:" ;
@@ -333,4 +346,12 @@ let () =
   let open Fifteenth in
   let result = drop ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"] 3 in
   List.iter (Printf.printf "%s ") result;
+
+  print_endline "\n---\nSixteenth:" ;
+  let open Sixteenth in
+  let (first, second) = split ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"] 3 in
+  print_string "first: " ;
+  List.iter (Printf.printf "%s ") first;
+  print_string "\nsecond: " ;
+  List.iter (Printf.printf "%s ") second;
 
