@@ -244,6 +244,17 @@ module Twelfth =
         in aux list [] 0 |> List.rev
     end
 
+  module Eighteenth =
+    struct
+      let rec rotate list i =
+        match list with
+          | [] -> []
+          | head :: tail ->
+            match i with
+              | 0 -> list
+              | x -> rotate (tail @ [head]) (x - 1)
+    end
+
 let () =
   (* first *)
   print_endline "First:" ;
@@ -372,4 +383,10 @@ let () =
   let open Seventeenth in
   let result = slice ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"] 2 6 in
   List.iter (Printf.printf "%s ") result;
+
+  print_endline "\n---\nEighteenth:" ;
+  let open Eighteenth in
+  let result = rotate ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"] 3 in
+  List.iter (Printf.printf "%s ") result;
+
 
