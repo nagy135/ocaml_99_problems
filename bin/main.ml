@@ -230,6 +230,19 @@ module Twelfth =
                 | x -> aux tail (head :: first, second) (x - 1)
         in aux list ([],[]) i
     end
+    
+  module Seventeenth =
+    struct
+      let slice list start finish =
+        let rec aux list acc i =
+          match list with
+            | [] -> acc
+            | head :: tail ->
+              if i >= start && i <= finish
+              then aux tail (head :: acc) (i + 1)
+              else aux tail acc (i + 1)
+        in aux list [] 0 |> List.rev
+    end
 
 let () =
   (* first *)
@@ -354,4 +367,9 @@ let () =
   List.iter (Printf.printf "%s ") first;
   print_string "\nsecond: " ;
   List.iter (Printf.printf "%s ") second;
+
+  print_endline "\n---\nSeventeenth:" ;
+  let open Seventeenth in
+  let result = slice ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"] 2 6 in
+  List.iter (Printf.printf "%s ") result;
 
