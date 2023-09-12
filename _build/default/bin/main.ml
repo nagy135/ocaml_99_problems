@@ -255,6 +255,19 @@ module Twelfth =
               | x -> rotate (tail @ [head]) (x - 1)
     end
 
+  module Nineteenth =
+    struct
+      let remove_at list index =
+        let rec aux list acc i =
+          match list with
+            | [] -> acc
+            | head :: tail ->
+              if i = index
+              then aux tail acc (i + 1)
+              else aux tail (head :: acc) (i + 1)
+        in aux list [] 0 |> List.rev
+    end
+
 let () =
   (* first *)
   print_endline "First:" ;
@@ -389,4 +402,8 @@ let () =
   let result = rotate ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"] 3 in
   List.iter (Printf.printf "%s ") result;
 
+  print_endline "\n---\nNineteenth:" ;
+  let open Nineteenth in
+  let result = remove_at ["a" ; "b" ; "c" ; "d" ; "e"] 1 in
+  List.iter (Printf.printf "%s ") result;
 
