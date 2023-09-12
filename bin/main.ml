@@ -269,7 +269,6 @@ module Twelfth =
     end
 
 let () =
-  (* first *)
   print_endline "First:" ;
   let open First in
   let result = last ["1" ; "2" ; "3"] in
@@ -280,7 +279,6 @@ let () =
   in
   print_endline res1 ;
 
-  (* second *)
   print_endline "---\nSecond:" ;
   let open Second in
   let result = last_two ["1" ; "2" ; "3"] in
@@ -292,7 +290,6 @@ let () =
   in
   print_endline res2;
 
-  (* third *)
   print_endline "---\nThird:" ;
   let open Third in
   let result = nth_record ["1" ; "2"] 1 in
@@ -303,39 +300,33 @@ let () =
   in
   print_endline res3;
 
-  (* fourth *)
   print_endline "---\nFourth:" ;
   let open Fourth in
   let result = length ["1" ; "2" ; "3" ; "4"] in
   Printf.printf "%d\n" result;
 
-  (* fifth *)
   print_endline "---\nFifth:" ;
   let open Fifth in
   let result = reverse ["1" ; "2" ; "3"] in
   List.iter (Printf.printf "%s ") result;
   print_endline "" ;
 
-  (* sixth *)
   print_endline "---\nSixth:" ;
   let open Sixth in
   let result = palindrome ["a" ; "b" ; "a"] in
   (* let result = palindrome ["a" ; "b" ; "c"] in *)
   Printf.printf "%b\n" result;
 
-  (* seventh *)
   print_endline "---\nSeventh:" ;
   let open Seventh in
   let result = flatten [One "a"; Many [One "b"; Many [One "c" ;One "d"]; One "e"]] in
   List.iter (Printf.printf "%s ") result;
 
-  (* eight *)
   print_endline "\n---\nEight:" ;
   let open Eight in
   let result = compress ["a" ; "a" ; "b" ; "a" ; "c" ; "c"] in
   List.iter (Printf.printf "%s ") result;
 
-  (* nineth *)
   print_string "\n---\nNineth:" ;
   let open Nineth in
   let result = pack ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"] in
