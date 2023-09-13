@@ -268,6 +268,20 @@ module Twelfth =
         in aux list [] 0 |> List.rev
     end
 
+  module Twentieth =
+    struct
+      let insert_at item index list =
+        let rec aux current_i list acc =
+          match list with
+            | [] -> acc
+            | head :: tail ->
+              if current_i = index
+              then aux (current_i + 1) tail (acc @ [item] @ [head]) 
+              else aux (current_i + 1) tail (acc @ [head])
+        in aux 0 list []
+
+    end
+
 let () =
   print_endline "First:" ;
   let open First in
@@ -398,3 +412,7 @@ let () =
   let result = remove_at ["a" ; "b" ; "c" ; "d" ; "e"] 1 in
   List.iter (Printf.printf "%s ") result;
 
+  print_endline "\n---\nTwentieth:" ;
+  let open Twentieth in
+  let result = insert_at "alfa" 1 ["a"; "b"; "c"; "d"] in
+  List.iter (Printf.printf "%s ") result;
